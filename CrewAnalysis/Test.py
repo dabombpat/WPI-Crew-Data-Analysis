@@ -52,7 +52,7 @@ def Average(lst):
 
 # xls = pd.read_excel(r'C:\Users\patri\Desktop\2K Scores .xlsx')
 
-xls = pd.ExcelFile(r'C:\Users\patri\Desktop\2K Scores PAT.xlsx')
+xls = pd.ExcelFile(r'C:\Users\patri\Desktop\2K Scores PATNO.xlsx')
 num_sheets = len(xls.sheet_names)
 sheets = [xls.parse(x) for x in range(num_sheets)][:-1]
 
@@ -92,24 +92,19 @@ print(f"{xx=}")
 print(f"{yy=}")
 
 #LINE OF BEST FIT
-xbar = sum(xx)/len(xx)
-ybar = sum(yy)/len(yy)
-n = len(xx)
+a, b = np.polyfit(xx,yy,1)
+new_list = [float(anum) for anum in xx]
+ll = [z*a+b for z in new_list]
+plt.plot(new_list,ll)
+#plt.grid(True)
 
-numer = sum([xi*yi for xi,yi in zip(xx, y)]) - n * xbar * ybar
-denum = sum([xi**2 for xi in xx]) - n * xbar**2
-
-b = numer/denum
-
-a = ybar - b * xbar
-yfit = [a + b * xi for xi in xx]
-# plt.plot(xx,yfit)
-
-#LINE OF BEST FIT END
 plt.scatter(xx, yy)
-
 plt.xscale("linear")
-# plt.xticks(xx, [float_to_timestamp(stamp) for stamp in xx], rotation=20)
+plt.xlabel('Fastest Score')
+plt.ylabel('Team Average')
+
+
+# plt.xticks(xx, [float_to_timestamp(stamp) for stamp in xx], rotation=40)
 # plt.yticks(yy, [float_to_timestamp(stamp) for stamp in yy])
 
 
